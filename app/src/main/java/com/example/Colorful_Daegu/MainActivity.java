@@ -1,4 +1,4 @@
-package com.example.colorful_daegu;
+package com.example.Colorful_Daegu;
 
 import androidx.appcompat.app.AppCompatActivity;
 
