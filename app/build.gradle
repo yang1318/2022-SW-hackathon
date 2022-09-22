@@ -1,13 +1,12 @@
 plugins {
     id 'com.android.application'
- //   id 'com.google.gms.google-services'
+    id 'com.google.gms.google-services'
 }
 
 android {
     compileSdk 31
-
     defaultConfig {
-        applicationId "com.example.colorful_daegu"
+        applicationId "com.example.Colorful_Daegu"
         minSdk 25
         targetSdk 31
         versionCode 1
@@ -39,4 +38,5 @@ dependencies {
 
     implementation platform('com.google.firebase:firebase-bom:30.4.0')
     implementation 'com.google.firebase:firebase-database'
+    implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
 }
