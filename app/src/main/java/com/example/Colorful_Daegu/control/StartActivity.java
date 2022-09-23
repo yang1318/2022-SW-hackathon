@@ -60,6 +60,7 @@ public class StartActivity extends AppCompatActivity {
         if (result.getResultCode() == RESULT_OK) {
             // Successfully signed in
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            Log.d("LOGIN", user.getDisplayName());
             //유저 이름, 유저아이디 디비에 넣기
             //databaseReference.child("user").child().setValue(user.getDisplayName(),user.getUid())
 
