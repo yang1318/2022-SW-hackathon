@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Colorful_Daegu">
         <activity
-            android:name="com.example.Colorful_Daegu.MainActivity"
+            android:name="com.example.Colorful_Daegu.control.StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
