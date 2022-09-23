@@ -13,7 +13,7 @@
             android:id="@+id/stampImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/knu_centralpark" />
+            android:src="@drawable/knu_logo" />
         <TextView
             android:id="@+id/stampName"
             android:layout_width="match_parent"
