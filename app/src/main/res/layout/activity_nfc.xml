@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFD2"
+    android:gravity="center_horizontal"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="#AA96DA"
+        >
+
+        <TextView
+            android:id="@+id/spotname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="30dp"
+            android:text="KNU"
+            android:textColor="@color/black"
+            android:textSize="40dp"
+            android:textStyle="bold"></TextView>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"></View>
+
+        <TextView
+            android:id="@+id/spotcontent"
+            android:layout_width="306dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="경북대의 상징적 수경시설"
+            android:textColor="@color/black"
+            android:textSize="20dp"></TextView>
+    </LinearLayout>
+
+</LinearLayout>
