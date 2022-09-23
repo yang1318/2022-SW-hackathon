@@ -17,18 +17,19 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/spotName"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:gravity="center"
                 android:text="경북대학교"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
             <RatingBar
@@ -47,15 +48,16 @@
             <TextView
                 android:id="@+id/achievementRate"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_margin="10dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="2dp"
+                android:layout_marginBottom="10dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="@color/white"
                 android:gravity="center"
                 android:text="  5/10  "
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 
@@ -66,7 +68,7 @@
             android:layout_margin="10dp"
             android:text="경북대학교는 1951년 10월 사범대학, 의과대학, 농과대학, 문이과대학, 5개로 구성된 종합대학교로 설립됐다"
             android:textColor="@color/black"
-            android:textSize="9sp" />
+            android:textSize="20sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -74,6 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/title"
+        android:gravity="center"
         android:background="#FFFFD2"
         android:scrollbars="vertical" />
 

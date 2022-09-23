@@ -11,8 +11,8 @@
         android:orientation="vertical">
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/stampImage"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:src="@drawable/knu_centralpark" />
         <TextView
             android:id="@+id/stampName"
