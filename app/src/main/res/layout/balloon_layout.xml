@@ -35,6 +35,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:src="@drawable/success_check"
+                android:visibility="invisible"
                 />
         </RelativeLayout>
 
@@ -51,19 +52,23 @@
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="12sp" />
 
+
+
         <TextView
             android:id="@+id/text_des"
             android:layout_width="100dp"
             android:layout_height="56dp"
+            android:gravity="center|top"
             android:layout_marginTop="30dp"
             android:layout_marginStart="15dp"
             android:layout_marginEnd="15dp"
             android:layout_toEndOf="@+id/img"
-            android:gravity="center|top"
+            android:scrollbars="vertical"
             android:autoSizeMinTextSize="12sp"
             android:autoSizeMaxTextSize="100sp"
             android:text="설명"
-            android:textSize="5sp" />
+            android:textSize="5sp"/>
+
 
         <TextView
             android:id="@+id/text_achievement"
@@ -85,7 +90,7 @@
             android:layout_marginBottom="8dp"
             android:layout_below="@+id/img"
             android:layout_toEndOf="@+id/text_achievement"
-            android:text="3"
+            android:text=""
             android:textSize="7sp" />
         <TextView
             android:id="@+id/slice_achievement"
@@ -107,7 +112,7 @@
             android:layout_marginBottom="8dp"
             android:layout_below="@+id/img"
             android:layout_toEndOf="@+id/slice_achievement"
-            android:text="3"
+            android:text=""
             android:textSize="7sp" />
 
         <ImageView
@@ -130,7 +135,7 @@
             android:layout_marginBottom="8dp"
             android:layout_below="@+id/img"
             android:layout_toEndOf="@+id/img_star"
-            android:text="4.0"
+            android:text=""
             android:textSize="7sp" />
         <TextView
             android:id="@+id/slice_rating"
