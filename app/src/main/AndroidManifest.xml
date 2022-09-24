@@ -14,14 +14,19 @@
         android:theme="@style/Theme.Colorful_Daegu">
         <activity
             android:name="com.example.Colorful_Daegu.control.StartActivity"
-            android:exported="true">
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:mimeType="application/colorful_travel"/>
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
         <activity android:name=".control.NfcActivity"></activity>
     </application>
 
