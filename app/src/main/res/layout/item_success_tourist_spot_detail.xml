@@ -20,7 +20,7 @@
             android:padding="14dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/success"
+            android:src="@drawable/success_check"
             android:id="@+id/success"/>
 
         <TextView

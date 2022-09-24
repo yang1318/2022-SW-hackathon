@@ -56,14 +56,19 @@ public class TestActivity extends AppCompatActivity {
         TouristSpot touristSpot2 = new TouristSpot("동성로 스파크", new Location(35.8687847,128.598467), "a.jpg", 3.0F, "대구 랜드마크 신개념 테마파크 쇼핑몰 동성로 스파크에서 만나보실 수 있습니다. 도심 속 옥상에서 10기종의 놀이기구를 즐겨보세요",new ArrayList<Stamp>(){{add(stamp);}});
 
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("Daegu/3/");
-        mDatabase.child("stampState").child("uid").setValue(stampState);
-        mDatabase.child("user").child("uid").setValue(user);
+        mDatabase = FirebaseDatabase.getInstance().getReference("Daegu/0/");
+        mDatabase.child("stampState").child(userInformation.getUid()).setValue(stampState);
+        mDatabase.child("user").child(userInformation.getUid()).setValue(user);
+
 
 //        mDatabase.child("stamp").setValue(stamp);
         mDatabase.child("touristSpot/0").setValue(touristSpot);
         mDatabase.child("touristSpot/1").setValue(touristSpot1);
         mDatabase.child("touristSpot/2").setValue(touristSpot2);
+
+
+
+
 
     }
 }

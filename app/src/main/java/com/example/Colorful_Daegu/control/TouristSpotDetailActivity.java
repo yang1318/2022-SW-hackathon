@@ -76,7 +76,7 @@ public class TouristSpotDetailActivity extends AppCompatActivity {
                     }
 
                     // TODO : uid 실제 로그인된 유저 가져오는 것으로 바꾸기
-                    mDatabase.child("stampState").child("uid").child("stampState").child(spotNumber).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    mDatabase.child("stampState").child("VxFq8m6PLTPx1cG9zhsz6O9lZsa2").child(spotNumber).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (task.isSuccessful()) {
@@ -94,7 +94,7 @@ public class TouristSpotDetailActivity extends AppCompatActivity {
                                 sb.append(String.valueOf(i));
                                 sb.append("  ");
                                 tAchievementRate.setText(sb);
-                                
+
                                 RecyclerView recyclerView = findViewById(R.id.recycler);
                                 GridLayoutManager gridLayoutManager = new GridLayoutManager(TouristSpotDetailActivity.this,3);
                                 recyclerView.setLayoutManager(gridLayoutManager);
