@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.Colorful_Daegu.MainActivity;
 import com.example.Colorful_Daegu.R;
 import com.example.Colorful_Daegu.model.Challenge;
 import com.example.Colorful_Daegu.model.Post;
@@ -173,6 +174,14 @@ public class NfcActivity extends AppCompatActivity {
                 refreshReply();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(),TouristSpotDetailActivity.class);
+        intent.putExtra("tid", tid);
+        intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void refreshReply() { // 댓글 새로고침
