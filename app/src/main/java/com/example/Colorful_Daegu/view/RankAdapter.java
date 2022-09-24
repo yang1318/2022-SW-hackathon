@@ -51,7 +51,7 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.viewHolder> {
     public void onBindViewHolder(@NonNull RankAdapter.viewHolder holder, int position) {
         User item = ranks.get(position);
 
-        holder.rankNum.setText(String.valueOf(position));
+        holder.rankNum.setText(String.valueOf(position+1));
         holder.userName.setText(item.getName());
         holder.stampNum.setText(String.valueOf(item.getStampCount()));
     }
