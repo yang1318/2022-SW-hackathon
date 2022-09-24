@@ -1,10 +1,6 @@
 package com.example.Colorful_Daegu.control;
 
-import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.Intent;
-import android.nfc.Tag;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,50 +9,45 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.loader.content.AsyncTaskLoader;
 
 import com.bumptech.glide.Glide;
 import com.example.Colorful_Daegu.R;
 import com.example.Colorful_Daegu.model.Challenge;
-import com.example.Colorful_Daegu.model.CommentItem;
 import com.example.Colorful_Daegu.model.Post;
 import com.example.Colorful_Daegu.model.Reply;
 import com.example.Colorful_Daegu.model.Stamp;
-import com.example.Colorful_Daegu.model.TouristSpot;
-import com.example.Colorful_Daegu.model.User;
 import com.example.Colorful_Daegu.view.NfcAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.ServerValue;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class NfcActivity extends AppCompatActivity {
 
     private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference("Daegu/5");
     private String stampname;
-    private ArrayList<Reply> replys;
+    private ArrayList<Reply> replys = new ArrayList<>();
     private String stampdesc;
     private Challenge challenge;
     private Integer count;
     private CustomDialog customDialog;
-    ArrayList<CommentItem> list;
+    ArrayList<Reply> list;
     private String challenge_content;
 
     //사용할 컴포넌트 선언
@@ -67,13 +58,31 @@ public class NfcActivity extends AppCompatActivity {
     EditText comment_et;
     Button reg_button;
     ImageView challenge_detail;
+    String sid;
+    String tid;
+    String uid;
+    NfcAdapter nfcAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
-        String sid = "0"; //stamp아이디
-        Integer tid = 0; //관광지 아이디
+
+        Intent intent = getIntent();
+        tid = intent.getStringExtra("tid");
+        sid = intent.getStringExtra("sid");
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            uid = user.getUid();
+        }
+
+        Map<String, Object> updates = new HashMap<>();
+
+        updates.put("user/"+uid+"/stampCount/", ServerValue.increment(1));
+        updates.put("stampState/"+uid+"/"+tid+"/"+sid, 1);
+        mDatabase.updateChildren(updates);
+
         ImageView glide = (ImageView)findViewById(R.id.c_glide);
 
 
@@ -101,7 +110,7 @@ public class NfcActivity extends AppCompatActivity {
             }
         });
         mDatabase.child("touristSpot")
-                .child(tid.toString())
+                .child(tid)
                 .child("stamps")
                 .child(sid)
                 .get()
@@ -126,13 +135,12 @@ public class NfcActivity extends AppCompatActivity {
                             spot_stamp.setText(stampname);
                             spot_content.setText(stampdesc);
                             if(replys.size()!= 0) { //댓글이 있다면 뿌리기
-
-                                for(int i =0;i<replys.size();i++){
-                                    CommentItem item = new CommentItem(replys.get(i).getContents(),replys.get(i).getTime());
-                                    list.add(item);
-                                }
                                 ListView listView = findViewById(R.id.listview);
-                                NfcAdapter nfcAdapter= new NfcAdapter(list);
+                                nfcAdapter= new NfcAdapter(replys);
+                                listView.setAdapter(nfcAdapter);
+
+                                listView = findViewById(R.id.listview);
+                                nfcAdapter= new NfcAdapter(replys);
                                 listView.setAdapter(nfcAdapter);
                             }
                         }
@@ -151,8 +159,28 @@ public class NfcActivity extends AppCompatActivity {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 String getTime = dateFormat.format(date);
                 Reply new_reply = new Reply(comment_et.getText().toString(),getTime);
-                mDatabase.child("touristSpot").child(tid.toString()).child("stamps").child(sid).child("replys").push().setValue(new_reply);
+                mDatabase.child("touristSpot").child(tid).child("stamps").child(sid).child("replys").push().setValue(new_reply);
                 Toast toast = Toast.makeText(getApplicationContext(),"댓글 등록이 완료되었습니다..",Toast.LENGTH_SHORT);
+
+                // refreshReply();
+            }
+        });
+    }
+
+    private void refreshReply() { // 댓글 새로고침
+        replys.clear();
+        mDatabase.child("touristSpot").child(tid).child("stamps").child(sid).child("replys").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    for(DataSnapshot snapshot : task.getResult().getChildren()) {
+                        replys.add(snapshot.getValue(Reply.class));
+                    }
+                    nfcAdapter.updateReply(replys);
+                }
+                else {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
             }
         });
     }

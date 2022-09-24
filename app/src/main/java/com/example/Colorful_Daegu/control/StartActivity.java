@@ -38,8 +38,8 @@ public class StartActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     private NfcAdapter nfcAdapter;
     private boolean nfcCheck;
-    private char tid;
-    private char sid;
+    private String tid;
+    private String sid;
 
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
@@ -70,14 +70,10 @@ public class StartActivity extends AppCompatActivity {
                         mDatabase.child("user").child(user.getUid()).setValue(tuser);
                         Toast toast = Toast.makeText(getApplicationContext(),"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT);
                         toast.show();
-                        Intent intent = new Intent(getApplicationContext(), NfcActivity.class);
-                        startActivity(intent);
                     }
                     else { /*   로그인    */
                         Toast toast = Toast.makeText(getApplicationContext(),"로그인이 완료되었습니다.",Toast.LENGTH_SHORT);
                         toast.show();
-                        Intent intent = new Intent(getApplicationContext(),NfcActivity.class);
-                        startActivity(intent);
                     }
                 }
             });
@@ -131,8 +127,8 @@ public class StartActivity extends AppCompatActivity {
             }
             byte[] payload = ((NdefMessage)rawMessages[0]).getRecords()[0].getPayload();
             nfcCheck = true;
-            tid = (char)(payload[0]);
-            sid = (char)(payload[2]);
+            tid = "" + (char)(payload[0]);
+            sid = "" + (char)(payload[2]);
             Log.d("NFC", "onNewIntent 호출됨");
         }
     }
