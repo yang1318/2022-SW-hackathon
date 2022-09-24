@@ -31,13 +31,17 @@ public class TouristSpotDetailAdapter extends RecyclerView.Adapter<TouristSpotDe
         context = parent.getContext();
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        if (viewType == 0) {
-            view = inflater.inflate(R.layout.item_tourist_spot_detail, parent, false);
-            return new detailViewHolder(view);
+        if (viewType == -1) { // 숨겨진 스탬프
+            view = inflater.inflate(R.layout.item_secret_spot_detail, parent, false);
+            return new secretDetailViewHolder(view);
         }
-        else {
+        else if (viewType == 1) { // 성공
             view = inflater.inflate(R.layout.item_success_tourist_spot_detail, parent, false);
             return new successDetailViewHolder(view);
+        }
+        else { // 성공전
+            view = inflater.inflate(R.layout.item_tourist_spot_detail, parent, false);
+            return new detailViewHolder(view);
         }
     }
 
@@ -76,7 +80,11 @@ public class TouristSpotDetailAdapter extends RecyclerView.Adapter<TouristSpotDe
         @Override
         void bind(TouristSpotDetailItem item) {
             textView.setText(item.getName());
-            Glide.with(itemView).load(item.getPictureUrl()).into(imageView);
+            Glide.with(itemView)
+                    .load(item.getPictureUrl())
+                    .placeholder(R.drawable.knu_logo)
+                    .error(R.drawable.knu_logo)
+                    .into(imageView);
         }
     }
 
@@ -91,7 +99,20 @@ public class TouristSpotDetailAdapter extends RecyclerView.Adapter<TouristSpotDe
         @Override
         void bind(TouristSpotDetailItem item) {
             textView.setText(item.getName());
-            Glide.with(itemView).load(item.getPictureUrl()).into(imageView);
+            Glide.with(itemView)
+                    .load(item.getPictureUrl())
+                    .placeholder(R.drawable.knu_logo)
+                    .error(R.drawable.knu_logo)
+                    .into(imageView);
+        }
+    }
+
+    public class secretDetailViewHolder extends BaseViewHolder {
+        public secretDetailViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+        @Override
+        void bind(TouristSpotDetailItem item) {
         }
     }
 

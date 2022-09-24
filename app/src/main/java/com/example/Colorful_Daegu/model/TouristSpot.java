@@ -6,13 +6,13 @@ public class TouristSpot {
     private String name;
     private Location location;
     private String pictureUrl;
-    private String rating;
+    private float rating;
     private String description;
     private ArrayList<Stamp> stamps;
 
     public TouristSpot(){}
 
-    public TouristSpot(String name, Location location, String pictureUrl, String rating,
+    public TouristSpot(String name, Location location, String pictureUrl, float rating,
                        String description, ArrayList<Stamp> stamps) {
         this.name = name;
         this.location = location;
@@ -46,11 +46,11 @@ public class TouristSpot {
         this.pictureUrl = pictureUrl;
     }
 
-    public String getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
