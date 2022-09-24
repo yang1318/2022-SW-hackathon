@@ -27,7 +27,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
-                android:text="경북대학교"
+                android:text="관광명소이름"
                 android:textColor="@color/black"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="경북대학교는 1951년 10월 사범대학, 의과대학, 농과대학, 문이과대학, 5개로 구성된 종합대학교로 설립됐다"
+            android:text="설명글"
             android:textColor="@color/black"
             android:textSize="20sp" />
     </LinearLayout>

@@ -80,7 +80,11 @@ public class TouristSpotDetailAdapter extends RecyclerView.Adapter<TouristSpotDe
         @Override
         void bind(TouristSpotDetailItem item) {
             textView.setText(item.getName());
-            Glide.with(itemView).load(item.getPictureUrl()).into(imageView);
+            Glide.with(itemView)
+                    .load(item.getPictureUrl())
+                    .placeholder(R.drawable.knu_logo)
+                    .error(R.drawable.knu_logo)
+                    .into(imageView);
         }
     }
 
@@ -95,7 +99,11 @@ public class TouristSpotDetailAdapter extends RecyclerView.Adapter<TouristSpotDe
         @Override
         void bind(TouristSpotDetailItem item) {
             textView.setText(item.getName());
-            Glide.with(itemView).load(item.getPictureUrl()).into(imageView);
+            Glide.with(itemView)
+                    .load(item.getPictureUrl())
+                    .placeholder(R.drawable.knu_logo)
+                    .error(R.drawable.knu_logo)
+                    .into(imageView);
         }
     }
 
