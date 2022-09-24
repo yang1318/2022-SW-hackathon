@@ -81,10 +81,12 @@ public class StartActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), NfcActivity.class);
                 intent.putExtra("tid", tid);
                 intent.putExtra("sid", sid);
+                intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
             else {
                 Intent intent = new Intent(getApplicationContext(), TouristSpotActivity.class);
+                intent.setFlags(intent.FLAG_ACTIVITY_NEW_TASK | intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
             }
 
