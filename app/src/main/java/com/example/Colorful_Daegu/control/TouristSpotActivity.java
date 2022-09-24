@@ -1,5 +1,6 @@
 package com.example.Colorful_Daegu.control;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class TouristSpotActivity extends AppCompatActivity {
+public class TouristSpotActivity extends AppCompatActivity implements MapView.POIItemEventListener{
     private ArrayList<TouristSpot> tours = new ArrayList<TouristSpot>();
     private ArrayList<String> tIds = new ArrayList<String>();  //필요없음
     private DatabaseReference ref;
@@ -43,6 +44,7 @@ public class TouristSpotActivity extends AppCompatActivity {
         ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
         mapView.setCalloutBalloonAdapter(new CustomCalloutBalloonAdapter());
+        mapView.setPOIItemEventListener(this);
 
         // 중심점 변경
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(35.8899242, 128.610697), true);
@@ -51,7 +53,7 @@ public class TouristSpotActivity extends AppCompatActivity {
 //         줌 레벨 변경
         mapView.setZoomLevel(6, true);
 
-        ref = FirebaseDatabase.getInstance().getReference("Daegu/0/");
+        ref = FirebaseDatabase.getInstance().getReference("Daegu/3/");
         ref.child("touristSpot").get().addOnCompleteListener(task ->{
             if(task.isSuccessful()){
                 for(DataSnapshot snapshot: task.getResult().getChildren()){
@@ -87,7 +89,30 @@ public class TouristSpotActivity extends AppCompatActivity {
 
         });
 
+        mapView.setPOIItemEventListener(new MapView.POIItemEventListener() {
+            @Override
+            public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+                System.out.println("ahffk");
+            }
 
+            @Override
+            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+                System.out.println("clickcl");
+            }
+
+            @Override
+            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+                System.out.println("click");
+                Intent intent = new Intent(getApplicationContext(),TouristSpotActivity.class);
+                intent.putExtra("tid",mapPOIItem.getTag());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
+            }
+        });
 
 
 
@@ -98,6 +123,29 @@ public class TouristSpotActivity extends AppCompatActivity {
             System.out.println("success_rank");
         });
 
+
+    }
+
+    @Override
+    public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+        System.out.println("click");
+        Intent intent = new Intent(getApplicationContext(),TouristSpotActivity.class);
+        intent.putExtra("tid",mapPOIItem.getTag());
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
 
     }
 
@@ -139,7 +187,7 @@ public class TouristSpotActivity extends AppCompatActivity {
             ((ImageView) mCalloutBalloon.findViewById(R.id.ball_img)).setImageResource(R.drawable.spot_knu);
             ((TextView) mCalloutBalloon.findViewById(R.id.text_des)).setText(tours.get(poiItem.getTag()).getDescription());
             ((TextView) mCalloutBalloon.findViewById(R.id.rate_achievement)).setText(Integer.toString(achNum));
-            ((TextView) mCalloutBalloon.findViewById(R.id.rating_tourist)).setText(tours.get(poiItem.getTag()).getRating());
+            ((TextView) mCalloutBalloon.findViewById(R.id.rating_tourist)).setText(String.valueOf(tours.get(poiItem.getTag()).getRating()));
             ((TextView) mCalloutBalloon.findViewById(R.id.rate)).setText(Integer.toString(stamp.size()));
 
             return mCalloutBalloon;
@@ -150,6 +198,31 @@ public class TouristSpotActivity extends AppCompatActivity {
             return mCalloutBalloon;
         }
     }
+
+//    class MarkerClickEvent implements MapView.POIItemEventListener{
+//        @Override
+//        public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+//
+//        }
+//
+//        @Override
+//        public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+//
+//        }
+//
+//        @Override
+//        public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+//            System.out.println("click");
+//            Intent intent = new Intent(getApplicationContext(),TouristSpotActivity.class);
+//            intent.putExtra("tid",mapPOIItem.getTag());
+//            startActivity(intent);
+//        }
+//
+//        @Override
+//        public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+//
+//        }
+//    }
 
 
 }
