@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height ="wrap_content"
+    android:padding="16dp"
+    android:layout_margin="16dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:orientation="horizontal"
+        android:background="@drawable/item_custom_rank_underbar">
+
+        <TextView
+            android:id="@+id/rank_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="3dp"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:text="1"
+            android:textSize="20dp" />
+        <TextView
+            android:id="@+id/rank_name"
+            android:gravity="center"
+            android:layout_weight="4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dahyun0917@naver.com"
+            android:textSize="17dp"/>
+        <TextView
+            android:id="@+id/collect_stamp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="21"
+            android:textSize="17dp"/>
+        <TextView
+            android:id="@+id/kor_count"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="개"
+            android:textSize="17dp"/>
+
+    </LinearLayout>
+\
+</LinearLayout>

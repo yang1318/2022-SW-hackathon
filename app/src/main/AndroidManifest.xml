@@ -34,6 +34,7 @@
         <activity android:name=".control.NfcActivity"></activity>
         <activity android:name=".control.TouristSpotActivity"></activity>
         <activity android:name=".control.TouristSpotDetailActivity"></activity>
+        <activity android:name=".control.RankActivity"></activity>
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="ab94b67feb840bc931cd304eeaab505f"/>
     </application>
 
