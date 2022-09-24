@@ -38,5 +38,13 @@
             android:textColor="@color/black"
             android:textSize="20dp"></TextView>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+    </LinearLayout>
 
 </LinearLayout>
