@@ -62,6 +62,7 @@ public class NfcActivity extends AppCompatActivity {
     String tid;
     String uid;
     NfcAdapter nfcAdapter;
+    ImageView reply_reload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +95,7 @@ public class NfcActivity extends AppCompatActivity {
         reg_button = findViewById(R.id.reg_button);
         stampCount = findViewById(R.id.stampCount);
         challenge_detail = findViewById(R.id.challenge_detail);
+        reply_reload = findViewById(R.id.reply_reload);
 
         list = new ArrayList<>();
 
@@ -102,6 +104,12 @@ public class NfcActivity extends AppCompatActivity {
         layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
         layoutParams.dimAmount = 0.8f;
         getWindow().setAttributes(layoutParams);
+        reply_reload.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                refreshReply();
+            }
+        });
         challenge_detail.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -151,7 +159,6 @@ public class NfcActivity extends AppCompatActivity {
                         }
                     }
                 });
-        // TODO : 핸드폰으로 검사하기
         reg_button.setOnClickListener(new View.OnClickListener(){ //댓글 버튼 클릭시
             @Override
             public void onClick(View view){
@@ -160,10 +167,10 @@ public class NfcActivity extends AppCompatActivity {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 String getTime = dateFormat.format(date);
                 Reply new_reply = new Reply(comment_et.getText().toString(),getTime);
-                mDatabase.child("touristSpot").child(tid).child("stamps").child(sid).child("replys").push().setValue(new_reply);
+                replys.add(new_reply);
+                mDatabase.child("touristSpot").child(tid).child("stamps").child(sid).child("replys").setValue(replys);
                 Toast toast = Toast.makeText(getApplicationContext(),"댓글 등록이 완료되었습니다..",Toast.LENGTH_SHORT);
-
-                // refreshReply();
+                refreshReply();
             }
         });
     }
