@@ -43,7 +43,7 @@
                 android:numStars="5"
                 android:progressTint="#FFD400"
                 android:rating="5"
-                android:stepSize="1" />
+                android:stepSize="0.1" />
 
             <TextView
                 android:id="@+id/achievementRate"
