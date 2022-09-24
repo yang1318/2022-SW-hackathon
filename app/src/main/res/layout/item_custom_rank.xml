@@ -15,6 +15,13 @@
         android:background="@drawable/item_custom_rank_underbar">
 
         <TextView
+            android:id="@+id/me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✨"
+            android:visibility="gone"
+            />
+        <TextView
             android:id="@+id/rank_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

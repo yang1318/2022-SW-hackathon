@@ -105,7 +105,7 @@ public class TouristSpotActivity extends AppCompatActivity {
                 }
             }
 
-            ref.child("stampState").child("VxFq8m6PLTPx1cG9zhsz6O9lZsa2").get().addOnCompleteListener(task1 -> {  //todo: uId 경로로 지정하기
+            ref.child("stampState").child(user.getUid()).get().addOnCompleteListener(task1 -> {
                 if(task1.isSuccessful()){
                     for(DataSnapshot snapshot : task1.getResult().getChildren()){
                         ArrayList<Integer> arr1 = new ArrayList<>();
@@ -130,28 +130,6 @@ public class TouristSpotActivity extends AppCompatActivity {
 
 
         });
-
-
-//        final LocationListener gpsLocationListener = new LocationListener() {
-//            public void onLocationChanged(Location location) {
-//
-//                String provider = location.getProvider();
-//                longitude = location.getLongitude();
-//                latitude = location.getLatitude();
-//                double altitude = location.getAltitude();
-//
-//
-//            }
-//
-//            public void onStatusChanged(String provider, int status, Bundle extras) {
-//            }
-//
-//            public void onProviderEnabled(String provider) {
-//            }
-//
-//            public void onProviderDisabled(String provider) {
-//            }
-//        };
 
 
         ExtendedFloatingActionButton rankFab = (ExtendedFloatingActionButton) findViewById(R.id.rank_fab);
@@ -180,13 +158,6 @@ public class TouristSpotActivity extends AppCompatActivity {
                     mapView.setZoomLevel(4, true);
 
                 }
-//                longitude = location.getLongitude();
-//                latitude = location.getLatitude();}
-
-//                if(longitude==0 || latitude==0){
-//                    longitude=128.598467;
-//                    latitude=35.8687847;
-//                }
             }
             });
 
