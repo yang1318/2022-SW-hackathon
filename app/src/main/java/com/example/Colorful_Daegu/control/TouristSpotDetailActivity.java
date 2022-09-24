@@ -1,7 +1,9 @@
 package com.example.Colorful_Daegu.control;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.WindowManager;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -45,8 +47,11 @@ public class TouristSpotDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_tourist_spot_detail);
-        String spotNumber = "0"; // TODO : intent 로 받아온 Tourist spot 정보
+        Intent intent = getIntent();
+        String spotNumber = intent.getStringExtra("tid"); // TODO : intent 로 받아온 Tourist spot 정보
+        System.out.println("spot: "+spotNumber);
         tSpotName = findViewById(R.id.spotName);
         tSpotDescription = findViewById(R.id.description);
         rSpotRating = findViewById(R.id.rateBar);

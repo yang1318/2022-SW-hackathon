@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height ="wrap_content"
-    android:padding="16dp"
-    android:layout_margin="16dp"
+    android:padding="5dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,6 +14,13 @@
         android:orientation="horizontal"
         android:background="@drawable/item_custom_rank_underbar">
 
+        <TextView
+            android:id="@+id/me"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="✨"
+            android:visibility="gone"
+            />
         <TextView
             android:id="@+id/rank_num"
             android:layout_width="wrap_content"
