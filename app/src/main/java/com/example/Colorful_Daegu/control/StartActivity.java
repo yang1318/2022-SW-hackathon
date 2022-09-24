@@ -80,7 +80,7 @@ public class StartActivity extends AppCompatActivity {
                     else { /*   로그인    */
                         Toast toast = Toast.makeText(getApplicationContext(),"로그인이 완료되었습니다.",Toast.LENGTH_SHORT);
                         toast.show();
-                        Intent intent = new Intent(getApplicationContext(),NfcActivity.class);
+                        Intent intent = new Intent(getApplicationContext(),TouristSpotActivity.class);
                         startActivity(intent);
                     }
                 }
