@@ -10,11 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.Colorful_Daegu.R;
-import com.example.Colorful_Daegu.model.RankItem;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.Colorful_Daegu.model.User;
 
 import java.util.ArrayList;
 
@@ -29,15 +25,15 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.viewHolder> {
             super(itemView);
 
             rankNum = (TextView) itemView.findViewById(R.id.rank_num);
-            userName = (TextView) itemView.findViewById(R.id.name);
-            stampNum = (TextView) itemView.findViewById(R.id.stampCount);
+            userName = (TextView) itemView.findViewById(R.id.rank_name);
+            stampNum = (TextView) itemView.findViewById(R.id.collect_stamp);
         }
     }
 
-    private ArrayList<RankItem> ranks = null;
+    private ArrayList<User> ranks;
 
 
-    public RankAdapter(ArrayList<RankItem> rankItems) {
+    public RankAdapter(ArrayList<User> rankItems) {
         this.ranks = rankItems;
     }
 
@@ -53,15 +49,16 @@ public class RankAdapter extends RecyclerView.Adapter<RankAdapter.viewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RankAdapter.viewHolder holder, int position) {
-        RankItem item = ranks.get(position);
+        User item = ranks.get(position);
 
         holder.rankNum.setText(String.valueOf(position));
         holder.userName.setText(item.getName());
-        holder.stampNum.setText(String.valueOf(item.getStampNum()));
+        holder.stampNum.setText(String.valueOf(item.getStampCount()));
     }
 
     @Override
     public int getItemCount() {
+        System.out.println("사이즈; "+ranks.size());
         return ranks.size();
     }
 }

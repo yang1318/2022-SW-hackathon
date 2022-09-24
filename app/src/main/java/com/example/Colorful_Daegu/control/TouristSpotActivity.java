@@ -55,7 +55,7 @@ public class TouristSpotActivity extends AppCompatActivity {
 //         줌 레벨 변경
         mapView.setZoomLevel(6, true);
 
-        ref = FirebaseDatabase.getInstance().getReference("Daegu/3/");
+        ref = FirebaseDatabase.getInstance().getReference("Daegu/4/");
         ref.child("touristSpot").get().addOnCompleteListener(task ->{
             if(task.isSuccessful()){
                 for(DataSnapshot snapshot: task.getResult().getChildren()){

@@ -2,7 +2,7 @@ package com.example.Colorful_Daegu.model;
 
 import java.util.HashMap;
 
-public class User {
+public class User implements Comparable<User>{
     private String name;
     private int stampCount;
 
@@ -26,5 +26,16 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+
+    @Override
+    public int compareTo(User user) {
+        if(user.getStampCount()>stampCount){
+            return 1;
+        } else if(user.getStampCount()<stampCount){
+            return -1;
+        }
+        return 0;
     }
 }

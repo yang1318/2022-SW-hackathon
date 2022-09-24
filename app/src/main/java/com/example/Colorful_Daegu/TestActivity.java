@@ -48,7 +48,7 @@ public class TestActivity extends AppCompatActivity {
         Post post2 = new Post("aaa",1,"양선아");
         ArrayList<Post> post = new ArrayList<Post>(Arrays.asList(post1,post2));
         HashMap<String, HashMap <String,ArrayList<Integer>>> ttttt = new HashMap<>();
-        StampState stampState = new StampState(new HashMap <String,ArrayList<Integer>>(test));
+        StampState stampState = new StampState(test);
         Reply reply = new Reply("ㅗㅑㅗㅑㅗㅑㅗ", "2020-01-04");
         Stamp stamp = new Stamp("일청담", "asldf", 1, "b.jpg", "이쁘당", new ArrayList<Reply>(Arrays.asList(reply)),new Challenge("최고에ㅛㅇ", post));
         TouristSpot touristSpot = new TouristSpot("경북대", new Location(35.8899242,128.610697), "a.jpg", 4.0F, "경북대학교(한자: 慶北大學校,영어: Kyungpook National University)는 대구광역시와 경상북도에 소재한 국립대학이자, 의과대학, 치과대학, 경상대학, 수의과대학, 간호대학, 약학대학, 사범대학, IT대학, 농업생명과학대학, 법학전문대학원 등 단과대학과 전문대학원을 갖춘 대규모 종합대학이다.",new ArrayList<Stamp>(){{add(stamp);}});
