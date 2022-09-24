@@ -4,7 +4,6 @@
     android:layout_height ="wrap_content"
     android:padding="16dp"
     android:layout_margin="16dp"
-    android:background="#eeeeee"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,26 +12,28 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/cmt_content_tv"
+            android:layout_width="match_parent"
+            android:textColor="#333333"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="30dp"
+            android:text="content" />
+        <TextView
             android:id="@+id/cmt_date_tv"
             android:gravity="right"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:textSize="15dp"
             android:text="date" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/cmt_content_tv"
-        android:layout_width="match_parent"
-        android:textColor="#333333"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="content" />
     <View
-        android:layout_width="match_parent"
+        android:layout_width="700dp"
         android:layout_height="2dp"
-        android:layout_margin="16dp"
+        android:layout_marginRight="10dp"
         android:background="#000000"
         />
 </LinearLayout>

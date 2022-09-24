@@ -70,7 +70,7 @@ public class StartActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {
                     if (task.getResult().getValue() == null) { /* 회원가입 시  */
-                        User tuser = new User(user.getDisplayName(),0);
+                        User tuser = new User(user.getEmail(),0);
                         mDatabase.child("user").child(user.getUid()).setValue(tuser);
                         Toast toast = Toast.makeText(getApplicationContext(),"회원가입이 완료되었습니다.",Toast.LENGTH_SHORT);
                         toast.show();
@@ -80,7 +80,7 @@ public class StartActivity extends AppCompatActivity {
                     else { /*   로그인    */
                         Toast toast = Toast.makeText(getApplicationContext(),"로그인이 완료되었습니다.",Toast.LENGTH_SHORT);
                         toast.show();
-                        Intent intent = new Intent(getApplicationContext(),TouristSpotActivity.class);
+                        Intent intent = new Intent(getApplicationContext(),NfcActivity.class);
                         startActivity(intent);
                     }
                 }
