@@ -18,6 +18,8 @@ import com.example.Colorful_Daegu.model.TouristSpotDetailItem;
 import com.example.Colorful_Daegu.view.TouristSpotDetailAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,6 +38,7 @@ public class TouristSpotDetailActivity extends AppCompatActivity {
     private TextView tSpotDescription;
     private RatingBar rSpotRating;
     private TextView tAchievementRate;
+    private String uid;
     int check;
     ArrayList<TouristSpotDetailItem> list;
 
@@ -75,8 +78,11 @@ public class TouristSpotDetailActivity extends AppCompatActivity {
                         list.add(item);
                     }
 
-                    // TODO : uid 실제 로그인된 유저 가져오는 것으로 바꾸기
-                    mDatabase.child("stampState").child("VxFq8m6PLTPx1cG9zhsz6O9lZsa2").child(spotNumber).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    if (user != null) {
+                        uid = user.getUid();
+                    }
+                    mDatabase.child("stampState").child(uid).child(spotNumber).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (task.isSuccessful()) {
