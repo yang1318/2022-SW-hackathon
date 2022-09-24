@@ -1,27 +1,28 @@
 package com.example.Colorful_Daegu.view;
 
 import android.content.Context;
-import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.Colorful_Daegu.R;
-import com.example.Colorful_Daegu.model.CommentItem;
+import com.example.Colorful_Daegu.model.Reply;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class NfcAdapter extends BaseAdapter {
     private Context context;
-    private ArrayList<CommentItem> sreplys;
+    private ArrayList<Reply> sreplys;
 
-    public NfcAdapter(ArrayList<CommentItem> replys) {
+    public NfcAdapter(ArrayList<Reply> replys) {
         sreplys = replys;
+    }
+
+    public void updateReply(ArrayList<Reply> replys) {
+        sreplys = replys;
+        this.notifyDataSetChanged();
     }
 
     @Override
@@ -55,17 +56,17 @@ public class NfcAdapter extends BaseAdapter {
         TextView timeTextView = (TextView) convertView.findViewById(R.id.cmt_date_tv) ;
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
-        CommentItem listViewItem = sreplys.get(position);
+        Reply listViewItem = sreplys.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        commentTextView.setText(listViewItem.getComment());
+        commentTextView.setText(listViewItem.getContents());
         timeTextView.setText(listViewItem.getTime().toString());
 
         return convertView;
     }
     public void addItem(String comment,String time){
-        CommentItem item = new CommentItem();
-        item.setComment(comment);
+        Reply item = new Reply();
+        item.setContents(comment);
         item.setTime(time);
         sreplys.add(item);
     }

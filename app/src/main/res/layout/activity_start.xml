@@ -7,26 +7,25 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="#A8D8EA">
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="80dp"
-        android:text="Colorful Travel"
-        android:gravity="center"
-        android:textColor="@color/purple_700"
-        android:textStyle="bold"
         android:layout_marginTop="60dp"
-        ></TextView>
+        android:gravity="center"
+        android:text="컬러풀 "
+        android:textColor="@color/purple_700"
+        android:textSize="80dp"
+        android:textStyle="bold"></TextView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="230dp"
+        android:layout_height="55dp"
 
-        android:background="@color/white"
-        android:gravity="center_vertical"
         android:layout_marginTop="60dp"
-        android:textStyle="bold"
+        android:background="@drawable/google_logo"
+        android:gravity="center_vertical"
         android:textColor="@color/black"
-        android:text="Start with google" />
+        android:textStyle="bold" />
 </LinearLayout>
