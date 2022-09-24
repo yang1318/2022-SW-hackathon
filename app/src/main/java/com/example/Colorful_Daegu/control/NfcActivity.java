@@ -8,6 +8,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,24 +49,30 @@ import java.util.List;
 
 public class NfcActivity extends AppCompatActivity {
 
-    private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference("Daegu/3");
+    private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference("Daegu/5");
     private String stampname;
     private ArrayList<Reply> replys;
     private String stampdesc;
     private Challenge challenge;
+    private Integer count;
+    private CustomDialog customDialog;
     ArrayList<CommentItem> list;
+    private String challenge_content;
+
     //사용할 컴포넌트 선언
     TextView spot_stamp;
     TextView spot_content;
     ListView listView;
+    TextView stampCount;
     EditText comment_et;
     Button reg_button;
+    ImageView challenge_detail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
-        String sid = "1"; //stamp아이디
+        String sid = "0"; //stamp아이디
         Integer tid = 0; //관광지 아이디
         ImageView glide = (ImageView)findViewById(R.id.c_glide);
 
@@ -75,61 +82,79 @@ public class NfcActivity extends AppCompatActivity {
         listView = findViewById(R.id.listview);
         comment_et =findViewById(R.id.comment_et);
         reg_button = findViewById(R.id.reg_button);
+        stampCount = findViewById(R.id.stampCount);
+        challenge_detail = findViewById(R.id.challenge_detail);
 
         list = new ArrayList<>();
 
+        //다이얼로그 밖의 화면은 흐리게 만들어줌
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.flags = WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+        layoutParams.dimAmount = 0.8f;
+        getWindow().setAttributes(layoutParams);
+        challenge_detail.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View v) {
+                customDialog = new CustomDialog(NfcActivity.this,challenge_content);
+                customDialog.show();
+            }
+        });
         mDatabase.child("touristSpot")
                 .child(tid.toString())
                 .child("stamps")
                 .child(sid)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (task.getResult().getValue() != null) {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                    Stamp stamp = task.getResult().getValue(Stamp.class);
-                    stampname = stamp.getName();
-                    replys = stamp.getReplys();
-                    stampdesc = stamp.getDescription();
-                    challenge = stamp.getChallenge();
-                    ArrayList<Post> posts = challenge.getPost();
-                    Glide.with(getApplicationContext()).load(posts.get(0).getPictureUrl()).into(glide);
-                    spot_stamp.setText(stampname);
-                    spot_content.setText(stampdesc);
-                    if(replys.size()!= 0) { //댓글이 있다면 뿌리기
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        if (task.getResult().getValue() != null) {
+                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                            Stamp stamp = task.getResult().getValue(Stamp.class);
+                            stampname = stamp.getName();
+                            replys = stamp.getReplys();
+                            stampdesc = stamp.getDescription();
+                            challenge = stamp.getChallenge();
+                            challenge_content = challenge.getDescription();
+                            ArrayList<Post> posts = challenge.getPost();
+                            Glide.with(getApplicationContext())
+                                    .load(posts.get(0).getPictureUrl())
+                                    .into(glide);
+                            count = posts.get(0).getRecommendNum();
 
-                        for(int i =0;i<replys.size();i++){
-                            CommentItem item = new CommentItem(replys.get(i).getContents(),replys.get(i).getTime());
-                            list.add(item);
+                            stampCount.setText(count.toString());
+                            spot_stamp.setText(stampname);
+                            spot_content.setText(stampdesc);
+                            if(replys.size()!= 0) { //댓글이 있다면 뿌리기
+
+                                for(int i =0;i<replys.size();i++){
+                                    CommentItem item = new CommentItem(replys.get(i).getContents(),replys.get(i).getTime());
+                                    list.add(item);
+                                }
+                                ListView listView = findViewById(R.id.listview);
+                                NfcAdapter nfcAdapter= new NfcAdapter(list);
+                                listView.setAdapter(nfcAdapter);
+                            }
                         }
-                        ListView listView = findViewById(R.id.listview);
-                        NfcAdapter nfcAdapter= new NfcAdapter(list);
-                        listView.setAdapter(nfcAdapter);
+                        else {
+                            System.out.println("@@@@@@@@@@실패 ㅠㅠㅠ ");
+                            Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                        }
                     }
-                }
-                else {
-                     System.out.println("@@@@@@@@@@실패 ㅠㅠㅠ ");
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-                }
-            }
-        });
+                });
         // TODO : 핸드폰으로 검사하기
         reg_button.setOnClickListener(new View.OnClickListener(){ //댓글 버튼 클릭시
             @Override
             public void onClick(View view){
                 long now = System.currentTimeMillis();
                 Date date = new Date(now);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 String getTime = dateFormat.format(date);
                 Reply new_reply = new Reply(comment_et.getText().toString(),getTime);
-                mDatabase.child("touristSpot").child(tid.toString()).child("stamps").child(sid).child("replys").setValue(new_reply);
+                mDatabase.child("touristSpot").child(tid.toString()).child("stamps").child(sid).child("replys").push().setValue(new_reply);
                 Toast toast = Toast.makeText(getApplicationContext(),"댓글 등록이 완료되었습니다..",Toast.LENGTH_SHORT);
-                Intent intent = getIntent();
-                startActivity(intent);
             }
         });
     }
-
 }
+

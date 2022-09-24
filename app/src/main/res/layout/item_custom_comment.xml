@@ -17,7 +17,7 @@
             android:textColor="#333333"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="30dp"
+            android:textSize="15dp"
             android:text="content" />
         <TextView
             android:id="@+id/cmt_date_tv"
