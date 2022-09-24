@@ -57,8 +57,11 @@ public class TestActivity extends AppCompatActivity {
 
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Daegu/4/");
-        mDatabase.child("stampState").child(userInformation.getUid()).setValue(stampState); //todo: userId
-        mDatabase.child("user").child(userInformation.getUid()).setValue(user);  //todo: userId
+//        mDatabase.child("stampState").child(userInformation.getUid()).setValue(stampState); //todo: userId
+//        mDatabase.child("user").child(userInformation.getUid()).setValue(user);  //todo: userId
+        mDatabase.child("stampState").child("uid22").setValue(stampState);
+        mDatabase.child("user").child("uid2333").setValue(user);
+
 
 
 //        mDatabase.child("stamp").setValue(stamp);

@@ -3,7 +3,6 @@ package com.example.Colorful_Daegu.control;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,13 +22,16 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.AsyncTaskLoader;
 
+import com.bumptech.glide.Glide;
 import com.example.Colorful_Daegu.R;
 import com.example.Colorful_Daegu.model.Challenge;
+import com.example.Colorful_Daegu.model.CommentItem;
 import com.example.Colorful_Daegu.model.Post;
 import com.example.Colorful_Daegu.model.Reply;
 import com.example.Colorful_Daegu.model.Stamp;
 import com.example.Colorful_Daegu.model.TouristSpot;
 import com.example.Colorful_Daegu.model.User;
+import com.example.Colorful_Daegu.view.NfcAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -37,8 +40,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class NfcActivity extends AppCompatActivity {
@@ -48,7 +53,7 @@ public class NfcActivity extends AppCompatActivity {
     private ArrayList<Reply> replys;
     private String stampdesc;
     private Challenge challenge;
-
+    ArrayList<CommentItem> list;
     //사용할 컴포넌트 선언
     TextView spot_stamp;
     TextView spot_content;
@@ -60,13 +65,18 @@ public class NfcActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nfc);
-        String sid = "0"; //stamp아이디
+        String sid = "1"; //stamp아이디
         Integer tid = 0; //관광지 아이디
+        ImageView glide = (ImageView)findViewById(R.id.c_glide);
+
+
         spot_stamp =(TextView)findViewById(R.id.spotname);
         spot_content= (TextView)findViewById(R.id.spotcontent);
-        listView = findViewById(R.id.comment);
+        listView = findViewById(R.id.listview);
         comment_et =findViewById(R.id.comment_et);
         reg_button = findViewById(R.id.reg_button);
+
+        list = new ArrayList<>();
 
 
         mDatabase.child("touristSpot")
@@ -84,31 +94,20 @@ public class NfcActivity extends AppCompatActivity {
                     replys = stamp.getReplys();
                     stampdesc = stamp.getDescription();
                     challenge = stamp.getChallenge();
-
+                    ArrayList<Post> posts = challenge.getPost();
+                    Glide.with(getApplicationContext()).load(posts.get(0).getPictureUrl()).into(glide);
                     spot_stamp.setText(stampname);
                     spot_content.setText(stampdesc);
-                    if(!replys.isEmpty()) { //댓글이 있다면 뿌리기
-                        ArrayList<String> content = new ArrayList<>();
-                        ArrayList<Long> time = new ArrayList<>();
+                    if(replys.size()!= 0) { //댓글이 있다면 뿌리기
+
                         for(int i =0;i<replys.size();i++){
-                            content.add(replys.get(i).getContents());
-                            time.add(replys.get(i).getTime());
+                            CommentItem item = new CommentItem(replys.get(i).getContents(),replys.get(i).getTime());
+                            list.add(item);
                         }
-
-                        ArrayAdapter<String> adapter_content = new ArrayAdapter<String>(
-                                getApplicationContext(),
-                                android.R.layout.simple_list_item_1,
-                                content);
-                        ArrayAdapter<Long> adapter_time = new ArrayAdapter<Long>(
-                                getApplicationContext(),
-                                android.R.layout.simple_list_item_1,
-                                time);
-                        listView.setAdapter(adapter_content);
-                    }else{
-                        System.out.println("데이터 읽기 실패 ");
-                        Log.e("firebase", "Error getting data", task.getException());
+                        ListView listView = findViewById(R.id.listview);
+                        NfcAdapter nfcAdapter= new NfcAdapter(list);
+                        listView.setAdapter(nfcAdapter);
                     }
-
                 }
                 else {
                      System.out.println("@@@@@@@@@@실패 ㅠㅠㅠ ");
@@ -116,13 +115,18 @@ public class NfcActivity extends AppCompatActivity {
                 }
             }
         });
+        // TODO : 핸드폰으로 검사하기
         reg_button.setOnClickListener(new View.OnClickListener(){ //댓글 버튼 클릭시
             @Override
             public void onClick(View view){
                 long now = System.currentTimeMillis();
-                Reply new_reply = new Reply(comment_et.getText().toString(),now);
-                mDatabase.child("touristSpot").child(tid.toString()).child("stamps").child(sid).setValue(new_reply);
-                Intent intent = new Intent(getApplicationContext(), NfcActivity.class);
+                Date date = new Date(now);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+                String getTime = dateFormat.format(date);
+                Reply new_reply = new Reply(comment_et.getText().toString(),getTime);
+                mDatabase.child("touristSpot").child(tid.toString()).child("stamps").child(sid).child("replys").setValue(new_reply);
+                Toast toast = Toast.makeText(getApplicationContext(),"댓글 등록이 완료되었습니다..",Toast.LENGTH_SHORT);
+                Intent intent = getIntent();
                 startActivity(intent);
             }
         });
