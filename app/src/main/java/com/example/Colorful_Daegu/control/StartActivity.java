@@ -41,6 +41,7 @@ public class StartActivity extends AppCompatActivity {
     private boolean nfcCheck;
     private String tid;
     private String sid;
+    private Long pressTime = 0L;
 
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
@@ -114,6 +115,24 @@ public class StartActivity extends AppCompatActivity {
         performTagOperations(getIntent());
     }
 
+    @Override
+    public void onBackPressed() {
+        if (pressTime == 0) {
+            Toast.makeText(StartActivity.this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            pressTime = System.currentTimeMillis();
+        }
+        else {
+            int seconds = (int) (System.currentTimeMillis() - pressTime);
+
+            if (seconds > 2000) {
+                Toast.makeText(StartActivity.this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+                pressTime = 0L;
+            }
+            else {
+                super.onBackPressed();
+            }
+        }
+    }
 
     @Override
     protected void onNewIntent(Intent intent) {
