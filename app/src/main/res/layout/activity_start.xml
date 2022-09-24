@@ -6,17 +6,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#A8D8EA">
+    android:background="@drawable/background3">
+    <LinearLayout
+        android:layout_width="350dp"
+        android:layout_height="200dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/item_custom_rank_ractangle">
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="150dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/start">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:gravity="center"
-        android:text="컬러풀 "
-        android:textColor="@color/purple_700"
-        android:textSize="80dp"
-        android:textStyle="bold"></TextView>
+        </ImageView>
+    </LinearLayout>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button2"
@@ -28,4 +35,13 @@
         android:gravity="center_vertical"
         android:textColor="@color/black"
         android:textStyle="bold" />
+
+    <ImageView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/Daegu">
+
+    </ImageView>
 </LinearLayout>
