@@ -81,9 +81,20 @@ public class TouristSpotDetailActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (task.isSuccessful()) {
                                 int i = 0;
+                                int sum = 0;
                                 for (DataSnapshot dataSnapshot : task.getResult().getChildren()) {
                                     list.get(i++).setSuccess(dataSnapshot.getValue(Integer.class));
+                                    if (dataSnapshot.getValue(Integer.class) > 0) sum++;
                                 }
+
+                                StringBuilder sb = new StringBuilder(10);
+                                sb.append("  ");
+                                sb.append(String.valueOf(sum));
+                                sb.append("/");
+                                sb.append(String.valueOf(i));
+                                sb.append("  ");
+                                tAchievementRate.setText(sb);
+                                
                                 RecyclerView recyclerView = findViewById(R.id.recycler);
                                 GridLayoutManager gridLayoutManager = new GridLayoutManager(TouristSpotDetailActivity.this,3);
                                 recyclerView.setLayoutManager(gridLayoutManager);
