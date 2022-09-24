@@ -88,8 +88,8 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(intent);
             }
             else {
-                //Intent intent = new Intent(getApplicationContext(), TouristSpotActivity.class);
-                //startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), TouristSpotActivity.class);
+                startActivity(intent);
             }
 
         } else {/*  로그인 실패   */
