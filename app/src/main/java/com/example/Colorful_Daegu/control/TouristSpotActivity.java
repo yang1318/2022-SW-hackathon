@@ -1,8 +1,15 @@
 package com.example.Colorful_Daegu.control;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -10,10 +17,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import com.example.Colorful_Daegu.MainActivity;
 import com.example.Colorful_Daegu.R;
 import com.example.Colorful_Daegu.model.TouristSpot;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,6 +37,7 @@ import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.HashMap;
 
 
@@ -34,24 +46,51 @@ public class TouristSpotActivity extends AppCompatActivity {
     private ArrayList<String> tIds = new ArrayList<String>();  //필요없음
     private DatabaseReference ref;
     private HashMap<String,ArrayList<Integer>> stamps = new HashMap<String,ArrayList<Integer>>();
-//    private MapView mapView = new MapView(this);
-//    private  eventListener = new MarkerClickEvent();
+    private double longitude=0,latitude=0;
+
+    private MapView.POIItemEventListener eventListener = new MapView.POIItemEventListener() {
+    @Override
+    public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+        System.out.println("click");
+        Intent intent = new Intent(getApplicationContext(),TouristSpotDetailActivity.class);
+        intent.putExtra("tid",String.valueOf(mapPOIItem.getTag()));
+        startActivity(intent);
+    }
+
+    @Override
+    public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
+    }
+};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_tourist_spot);
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         MapView mapView = new MapView(this);
+        LayoutInflater inflater = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = inflater.inflate(R.layout.item_tourist_spot_balloon_layout, null);
+        TextView tv = v.findViewById(R.id.text_des);
+        tv.setMovementMethod(new ScrollingMovementMethod());
 
         ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
         mapView.setCalloutBalloonAdapter(new CustomCalloutBalloonAdapter());
-//        mapView.setPOIItemEventListener(eventListener);
+        mapView.setPOIItemEventListener(eventListener);
 
         // 중심점 변경
-        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(35.8899242, 128.610697), true);
+        mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(35.8687847, 128.598467), true);
 
 
 //         줌 레벨 변경
@@ -75,7 +114,6 @@ public class TouristSpotActivity extends AppCompatActivity {
                         }
                         stamps.put(snapshot.getKey(),arr1);
                     }
-                    System.out.println(stamps);
 
                     for(int i=0;i<tours.size();i++){
                         MapPoint MARKER_POINT = MapPoint.mapPointWithGeoCoord(tours.get(i).getLocation().getLatitude(), tours.get(i).getLocation().getLongitude());
@@ -93,65 +131,68 @@ public class TouristSpotActivity extends AppCompatActivity {
 
         });
 
-//        mapView.setPOIItemEventListener(new MapView.POIItemEventListener() {
-//            @Override
-//            public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-//                System.out.println("ahffk");
-//            }
-//
-//            @Override
-//            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
-//                System.out.println("clickcl");
-//            }
-//
-//            @Override
-//            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
-//                System.out.println("click");
-//                Intent intent = new Intent(getApplicationContext(),TouristSpotActivity.class);
-//                intent.putExtra("tid",mapPOIItem.getTag());
-//                startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
-//
-//            }
-//        });
 
+//        final LocationListener gpsLocationListener = new LocationListener() {
+//            public void onLocationChanged(Location location) {
+//
+//                String provider = location.getProvider();
+//                longitude = location.getLongitude();
+//                latitude = location.getLatitude();
+//                double altitude = location.getAltitude();
+//
+//
+//            }
+//
+//            public void onStatusChanged(String provider, int status, Bundle extras) {
+//            }
+//
+//            public void onProviderEnabled(String provider) {
+//            }
+//
+//            public void onProviderDisabled(String provider) {
+//            }
+//        };
 
 
         ExtendedFloatingActionButton rankFab = (ExtendedFloatingActionButton) findViewById(R.id.rank_fab);
         rankFab.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(),RankActivity.class);
             startActivity(intent);
-//            System.out.println("success_rank");
         });
+
+        FloatingActionButton locationFab = (FloatingActionButton) findViewById(R.id.location_fab);
+        locationFab.setOnClickListener(view -> {
+            final LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            if ( Build.VERSION.SDK_INT >= 23 &&
+                    ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
+                ActivityCompat.requestPermissions( TouristSpotActivity.this, new String[] {  android.Manifest.permission.ACCESS_FINE_LOCATION  },
+                        0 );
+            }else {
+                Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                if (location != null) {
+                    latitude = location.getLatitude();
+                    longitude = location.getLongitude();
+
+                    mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude, longitude), true);
+
+                } else {
+                    mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(35.8899242, 128.610697), true);
+                    mapView.setZoomLevel(4, true);
+
+                }
+//                longitude = location.getLongitude();
+//                latitude = location.getLatitude();}
+
+//                if(longitude==0 || latitude==0){
+//                    longitude=128.598467;
+//                    latitude=35.8687847;
+//                }
+            }
+            });
+
 
 
     }
-
-//    @Override
-//    public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-//
-//    }
-//
-//    @Override
-//    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
-//
-//    }
-//
-//    @Override
-//    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
-//        System.out.println("click");
-//        Intent intent = new Intent(getApplicationContext(),TouristSpotActivity.class);
-//        intent.putExtra("tid",mapPOIItem.getTag());
-//        startActivity(intent);
-//    }
-//
-//    @Override
-//    public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
-
-
 
     class CustomCalloutBalloonAdapter implements CalloutBalloonAdapter {
         private final View mCalloutBalloon;
@@ -165,12 +206,11 @@ public class TouristSpotActivity extends AppCompatActivity {
             imageView = mCalloutBalloon.findViewById(R.id.ball_img);
             img_success = mCalloutBalloon.findViewById(R.id.success_img);
             textDes = mCalloutBalloon.findViewById(R.id.text_des);
-
+            textDes.setMovementMethod(new ScrollingMovementMethod());
         }
 
         @Override
         public View getCalloutBalloon(MapPOIItem poiItem) {
-            textDes.setMovementMethod(new ScrollingMovementMethod());
             stamp = stamps.get(Integer.toString(poiItem.getTag()));
             achNum=0;
             for(int i=0; i< stamp.size();i++){
@@ -199,35 +239,8 @@ public class TouristSpotActivity extends AppCompatActivity {
 
         @Override
         public View getPressedCalloutBalloon(MapPOIItem poiItem) {
-            System.out.println("clickclick");
             return mCalloutBalloon;
         }
     }
-
-//    class MarkerClickEvent implements MapView.POIItemEventListener{
-//
-//        @Override
-//        public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-//
-//        }
-//
-//        @Override
-//        public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
-//
-//        }
-//
-//        @Override
-//        public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
-//            System.out.println("click");
-//            Intent intent = new Intent(getApplicationContext(),TouristSpotActivity.class);
-//            intent.putExtra("tid",mapPOIItem.getTag());
-//            startActivity(intent);
-//        }
-//
-//        @Override
-//        public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
-//
-//        }
-//    }
 
 }
