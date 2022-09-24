@@ -1,7 +1,11 @@
 package com.example.Colorful_Daegu.control;
 
 import android.content.Intent;
+import android.nfc.NdefMessage;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,12 +35,12 @@ import java.util.List;
 
 public class StartActivity extends AppCompatActivity {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    //DatabaseReference는 데이터베이스의 특정 위치로 연결하는 거라고 생각하면 된다.
-    //현재 연결은 데이터베이스에만 딱 연결해놓고
-    //키값(테이블 또는 속성)의 위치 까지는 들어가지는 않은 모습이다.
     private DatabaseReference mDatabase;
+    private NfcAdapter nfcAdapter;
+    private boolean nfcCheck;
+    private char tid;
+    private char sid;
 
-    // FirebaseUI 활동 결과 계약의 콜백을 등록하는 ActivityResultLauncher
     private final ActivityResultLauncher<Intent> signInLauncher = registerForActivityResult(
             new FirebaseAuthUIActivityResultContract(),
             new ActivityResultCallback<FirebaseAuthUIAuthenticationResult>() {
@@ -46,20 +50,12 @@ public class StartActivity extends AppCompatActivity {
                 }
             }
     );
-
-    // Choose authentication providers
     List<AuthUI.IdpConfig> providers = Arrays.asList(
-            /*new AuthUI.IdpConfig.EmailBuilder().build(),*/
             new AuthUI.IdpConfig.GoogleBuilder().build());
-
-    // Create and launch sign-in intent
     Intent signInIntent = AuthUI.getInstance()
             .createSignInIntentBuilder()
             .setAvailableProviders(providers)
-            //.setLogo(R.drawable.img)      // Set logo drawable
-            //.setTheme(R.style.themes)      // Set theme
             .build();
-
 
     private void onSignInResult(FirebaseAuthUIAuthenticationResult result) {
         IdpResponse response = result.getIdpResponse();
@@ -85,16 +81,22 @@ public class StartActivity extends AppCompatActivity {
                     }
                 }
             });
+            if (nfcCheck) {
+                Intent intent = new Intent(getApplicationContext(), NfcActivity.class);
+                intent.putExtra("tid", tid);
+                intent.putExtra("sid", sid);
+                startActivity(intent);
+            }
+            else {
+                Intent intent = new Intent(getApplicationContext(), TouristSpotActivity.class);
+                startActivity(intent);
+            }
 
-            //유저 이름, 유저아이디 디비에 넣기
-            //databaseReference.child("user").child().setValue(user.getDisplayName(),user.getUid())
-
-
-            // ...
         } else {/*  로그인 실패   */
             Toast toast = Toast.makeText(this.getApplicationContext(),"로그인에 실패하였습니다.",Toast.LENGTH_SHORT);
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -107,7 +109,31 @@ public class StartActivity extends AppCompatActivity {
                 signInLauncher.launch(signInIntent);
             }
         });
+        performTagOperations(getIntent());
+    }
 
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        performTagOperations(intent);
+    }
+
+    private void performTagOperations(Intent intent) {
+        if (NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())) { // NFC로 실행됨
+            NdefMessage ndefMessage = null;
+            Parcelable[] rawMessages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            if (rawMessages != null) {
+                NdefMessage[] messages = new NdefMessage[rawMessages.length];
+                for (int i = 0; i < rawMessages.length; i++) {
+                    messages[i] = (NdefMessage) rawMessages[i];
+                }
+            }
+            byte[] payload = ((NdefMessage)rawMessages[0]).getRecords()[0].getPayload();
+            nfcCheck = true;
+            tid = (char)(payload[0]);
+            sid = (char)(payload[2]);
+            Log.d("NFC", "onNewIntent 호출됨");
+        }
     }
 }
