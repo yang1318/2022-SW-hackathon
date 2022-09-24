@@ -31,8 +31,8 @@
                 android:id="@+id/success_img"
                 android:layout_width="70dp"
                 android:layout_height="65dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="13dp"
                 android:layout_marginBottom="8dp"
                 android:src="@drawable/success_check"
                 android:visibility="invisible"
@@ -42,15 +42,15 @@
 
         <TextView
             android:id="@+id/text_name"
-            android:layout_width="70dp"
+            android:layout_width="96dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="10dp"
             android:layout_toEndOf="@+id/img"
             android:gravity="center"
             android:text="장소명"
             android:textColor="?android:attr/textColorPrimary"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
 
 
@@ -67,7 +67,7 @@
             android:autoSizeMinTextSize="12sp"
             android:autoSizeMaxTextSize="100sp"
             android:text="설명"
-            android:textSize="5sp"/>
+            android:textSize="8sp"/>
 
 
         <TextView
@@ -79,7 +79,7 @@
             android:layout_marginBottom="8dp"
             android:layout_below="@+id/img"
             android:text="달성도"
-            android:textSize="7sp" />
+            android:textSize="8sp" />
 
         <TextView
             android:id="@+id/rate_achievement"
@@ -91,7 +91,7 @@
             android:layout_below="@+id/img"
             android:layout_toEndOf="@+id/text_achievement"
             android:text=""
-            android:textSize="7sp" />
+            android:textSize="9sp" />
         <TextView
             android:id="@+id/slice_achievement"
             android:layout_width="wrap_content"
@@ -102,7 +102,7 @@
             android:layout_below="@+id/img"
             android:layout_toEndOf="@+id/rate_achievement"
             android:text="/"
-            android:textSize="7sp" />
+            android:textSize="9sp" />
         <TextView
             android:id="@+id/rate"
             android:layout_width="wrap_content"
@@ -113,7 +113,7 @@
             android:layout_below="@+id/img"
             android:layout_toEndOf="@+id/slice_achievement"
             android:text=""
-            android:textSize="7sp" />
+            android:textSize="9sp" />
 
         <ImageView
             android:id="@+id/img_star"
@@ -136,7 +136,7 @@
             android:layout_below="@+id/img"
             android:layout_toEndOf="@+id/img_star"
             android:text=""
-            android:textSize="7sp" />
+            android:textSize="9sp" />
         <TextView
             android:id="@+id/slice_rating"
             android:layout_width="wrap_content"
@@ -147,7 +147,7 @@
             android:layout_below="@+id/img"
             android:layout_toEndOf="@+id/rating_tourist"
             android:text="/"
-            android:textSize="7sp" />
+            android:textSize="9sp" />
         <TextView
             android:id="@+id/rating_total"
             android:layout_width="wrap_content"
@@ -158,7 +158,7 @@
             android:layout_below="@+id/img"
             android:layout_toEndOf="@+id/slice_rating"
             android:text="5.0"
-            android:textSize="7sp" />
+            android:textSize="9sp" />
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

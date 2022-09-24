@@ -2,10 +2,10 @@ package com.example.Colorful_Daegu.model;
 
 public class Reply {
     private String contents;
-    private long time;
+    private String time;
 
     public Reply(){}
-    public Reply(String contents, long time) {
+    public Reply(String contents, String time) {
         this.contents = contents;
         this.time = time;
     }
@@ -18,11 +18,11 @@ public class Reply {
         this.contents = contents;
     }
 
-    public long getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(String time) {
         this.time = time;
     }
 

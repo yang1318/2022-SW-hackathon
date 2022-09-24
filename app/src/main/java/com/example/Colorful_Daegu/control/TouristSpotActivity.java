@@ -28,11 +28,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-public class TouristSpotActivity extends AppCompatActivity implements MapView.POIItemEventListener{
+public class TouristSpotActivity extends AppCompatActivity {
     private ArrayList<TouristSpot> tours = new ArrayList<TouristSpot>();
     private ArrayList<String> tIds = new ArrayList<String>();  //필요없음
     private DatabaseReference ref;
     private HashMap<String,ArrayList<Integer>> stamps = new HashMap<String,ArrayList<Integer>>();
+//    private MapView mapView = new MapView(this);
+//    private  eventListener = new MarkerClickEvent();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,7 @@ public class TouristSpotActivity extends AppCompatActivity implements MapView.PO
         ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
         mapView.setCalloutBalloonAdapter(new CustomCalloutBalloonAdapter());
-        mapView.setPOIItemEventListener(this);
+//        mapView.setPOIItemEventListener(eventListener);
 
         // 중심점 변경
         mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(35.8899242, 128.610697), true);
@@ -89,65 +91,65 @@ public class TouristSpotActivity extends AppCompatActivity implements MapView.PO
 
         });
 
-        mapView.setPOIItemEventListener(new MapView.POIItemEventListener() {
-            @Override
-            public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-                System.out.println("ahffk");
-            }
-
-            @Override
-            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
-                System.out.println("clickcl");
-            }
-
-            @Override
-            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
-                System.out.println("click");
-                Intent intent = new Intent(getApplicationContext(),TouristSpotActivity.class);
-                intent.putExtra("tid",mapPOIItem.getTag());
-                startActivity(intent);
-            }
-
-            @Override
-            public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
-
-            }
-        });
+//        mapView.setPOIItemEventListener(new MapView.POIItemEventListener() {
+//            @Override
+//            public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+//                System.out.println("ahffk");
+//            }
+//
+//            @Override
+//            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+//                System.out.println("clickcl");
+//            }
+//
+//            @Override
+//            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+//                System.out.println("click");
+//                Intent intent = new Intent(getApplicationContext(),TouristSpotActivity.class);
+//                intent.putExtra("tid",mapPOIItem.getTag());
+//                startActivity(intent);
+//            }
+//
+//            @Override
+//            public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+//
+//            }
+//        });
 
 
 
         ExtendedFloatingActionButton rankFab = (ExtendedFloatingActionButton) findViewById(R.id.rank_fab);
         rankFab.setOnClickListener(view -> {
-//            Intent intent = new Intent(getApplicationContext(),TouristSpotActivity.class);
-//            startActivity(intent);
-            System.out.println("success_rank");
+            Intent intent = new Intent(getApplicationContext(),RankActivity.class);
+            startActivity(intent);
+//            System.out.println("success_rank");
         });
 
 
     }
 
-    @Override
-    public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+//    @Override
+//    public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
+//
+//    }
+//
+//    @Override
+//    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+//
+//    }
+//
+//    @Override
+//    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+//        System.out.println("click");
+//        Intent intent = new Intent(getApplicationContext(),TouristSpotActivity.class);
+//        intent.putExtra("tid",mapPOIItem.getTag());
+//        startActivity(intent);
+//    }
+//
+//    @Override
+//    public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
 
-    }
 
-    @Override
-    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
-
-    }
-
-    @Override
-    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
-        System.out.println("click");
-        Intent intent = new Intent(getApplicationContext(),TouristSpotActivity.class);
-        intent.putExtra("tid",mapPOIItem.getTag());
-        startActivity(intent);
-    }
-
-    @Override
-    public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
-
-    }
 
     class CustomCalloutBalloonAdapter implements CalloutBalloonAdapter {
         private final View mCalloutBalloon;
@@ -157,7 +159,7 @@ public class TouristSpotActivity extends AppCompatActivity implements MapView.PO
         private ArrayList<Integer> stamp;
         private int achNum=0;
         public CustomCalloutBalloonAdapter() {
-            mCalloutBalloon = getLayoutInflater().inflate(R.layout.balloon_layout, null);
+            mCalloutBalloon = getLayoutInflater().inflate(R.layout.item_tourist_spot_balloon_layout, null);
             imageView = mCalloutBalloon.findViewById(R.id.ball_img);
             img_success = mCalloutBalloon.findViewById(R.id.success_img);
             textDes = mCalloutBalloon.findViewById(R.id.text_des);
@@ -195,11 +197,13 @@ public class TouristSpotActivity extends AppCompatActivity implements MapView.PO
 
         @Override
         public View getPressedCalloutBalloon(MapPOIItem poiItem) {
+            System.out.println("clickclick");
             return mCalloutBalloon;
         }
     }
 
 //    class MarkerClickEvent implements MapView.POIItemEventListener{
+//
 //        @Override
 //        public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
 //
@@ -223,6 +227,5 @@ public class TouristSpotActivity extends AppCompatActivity implements MapView.PO
 //
 //        }
 //    }
-
 
 }
