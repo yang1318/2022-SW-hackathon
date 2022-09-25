@@ -1,6 +1,7 @@
 package com.example.Colorful_Daegu.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.Colorful_Daegu.R;
+import com.example.Colorful_Daegu.control.RankActivity;
 import com.example.Colorful_Daegu.model.TouristSpotDetailItem;
 
 import java.util.ArrayList;
@@ -20,8 +22,10 @@ public class TouristSpotDetailAdapter extends RecyclerView.Adapter<TouristSpotDe
 
     private Context context;
     private ArrayList<TouristSpotDetailItem> myList;
-    public TouristSpotDetailAdapter(ArrayList<TouristSpotDetailItem> list) {
+    private String myTid;
+    public TouristSpotDetailAdapter(ArrayList<TouristSpotDetailItem> list,String tid) {
         myList = list;
+        myTid = tid;
     }
 
     @NonNull
@@ -85,6 +89,13 @@ public class TouristSpotDetailAdapter extends RecyclerView.Adapter<TouristSpotDe
                     .placeholder(R.drawable.knu_logo)
                     .error(R.drawable.knu_logo)
                     .into(imageView);
+
+            imageView.setOnClickListener(view->{
+                Intent intent = new Intent(itemView.getContext(), NfcAdapter.class);
+                intent.putExtra("tid", myTid);
+                intent.putExtra("sid",item.getIndex());
+                view.getContext().startActivity(intent);
+            });
         }
     }
 
@@ -104,6 +115,13 @@ public class TouristSpotDetailAdapter extends RecyclerView.Adapter<TouristSpotDe
                     .placeholder(R.drawable.knu_logo)
                     .error(R.drawable.knu_logo)
                     .into(imageView);
+
+            imageView.setOnClickListener(view->{
+                Intent intent = new Intent(itemView.getContext(), NfcAdapter.class);
+                intent.putExtra("tid", myTid);
+                intent.putExtra("sid",item.getIndex());
+                view.getContext().startActivity(intent);
+            });
         }
     }
 

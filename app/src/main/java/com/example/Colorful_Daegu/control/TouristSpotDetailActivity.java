@@ -78,8 +78,9 @@ public class TouristSpotDetailActivity extends AppCompatActivity {
                     tSpotDescription.setText(spotDescription);
                     rSpotRating.setRating(spotRating);
 
+                    int i = 0;
                     for(Stamp stamp : touristSpot.getStamps()) {
-                        TouristSpotDetailItem item = new TouristSpotDetailItem(stamp.getPictureUrl(), stamp.getName(), 0);
+                        TouristSpotDetailItem item = new TouristSpotDetailItem(i++, stamp.getPictureUrl(), stamp.getName(), 0);
                         list.add(item);
                     }
 
@@ -109,7 +110,7 @@ public class TouristSpotDetailActivity extends AppCompatActivity {
                                 RecyclerView recyclerView = findViewById(R.id.recycler);
                                 GridLayoutManager gridLayoutManager = new GridLayoutManager(TouristSpotDetailActivity.this,3);
                                 recyclerView.setLayoutManager(gridLayoutManager);
-                                TouristSpotDetailAdapter touristSpotDetailAdapter = new TouristSpotDetailAdapter(list);
+                                TouristSpotDetailAdapter touristSpotDetailAdapter = new TouristSpotDetailAdapter(list,spotNumber);
                                 recyclerView.setAdapter(touristSpotDetailAdapter);
                             }
                             else {
