@@ -25,7 +25,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="8dp"
-                android:src="@drawable/test_tourist_spot"
+                android:src="@drawable/knu_logo"
                 />
             <ImageView
                 android:id="@+id/success_img"
