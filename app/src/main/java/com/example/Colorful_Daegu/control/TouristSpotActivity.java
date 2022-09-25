@@ -213,13 +213,13 @@ public class TouristSpotActivity extends AppCompatActivity {
                 case "서문시장" :imgBall.setImageResource(R.drawable.spot_seomunmarket); break;
                 case "대구 수목원" : imgBall.setImageResource(R.drawable.spot_arboretum);break;
                 case "대구숲": imgBall.setImageResource(R.drawable.spot_forest);break;
+                case "스파밸리": imgBall.setImageResource(R.drawable.spot_waterpark);break;
+                case "대구 미술관": imgBall.setImageResource(R.drawable.spot_gallery);break;
                 default: imgBall.setImageResource(R.drawable.spot_knu);break;
 //                case "대구 스타디움" : imgBall.setImageResource(R.drawable.spot_knu);break;
-//                case "대구 미술관" : imgBall.setImageResource(R.drawable.spot_knu);break;
 //                case "도동서원" : imgBall.setImageResource(R.drawable.spot_knu);break;
 //                case "약령시" : imgBall.setImageResource(R.drawable.spot_knu);break;
 //                case "동화사" : imgBall.setImageResource(R.drawable.spot_knu);break;
-//                case "스파밸리" : imgBall.setImageResource(R.drawable.spot_knu);break;
 //                case "비슬산군립공원" : imgBall.setImageResource(R.drawable.spot_knu);break;
 //                case "국립대구박물관" : imgBall.setImageResource(R.drawable.spot_knu);break;
             }
