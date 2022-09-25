@@ -15,3 +15,4 @@ google-services.json
 .cxx
 local.properties
 /.idea/deploymentTargetDropDown.xml
+.idea/gradle.xml

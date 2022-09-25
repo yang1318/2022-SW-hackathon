@@ -62,7 +62,7 @@ public class StartActivity extends AppCompatActivity {
         IdpResponse response = result.getIdpResponse();
         if (result.getResultCode() == RESULT_OK) { /*   로그인 성공    */
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser(); // 로그인한 유저 정보
-            mDatabase =FirebaseDatabase.getInstance().getReference("Daegu/1");
+            mDatabase =FirebaseDatabase.getInstance().getReference("Daegu/final");
             mDatabase.child("user").child(user.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DataSnapshot> task) {

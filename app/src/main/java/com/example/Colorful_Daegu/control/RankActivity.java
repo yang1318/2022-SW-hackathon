@@ -24,7 +24,7 @@ public class RankActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<User> ranks;
     private RankAdapter rankAdapter;
-    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Daegu/4/");
+    DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Daegu/final/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
