@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -47,6 +48,7 @@ public class TouristSpotActivity extends AppCompatActivity {
     private DatabaseReference ref;
     private HashMap<String,ArrayList<Integer>> stamps = new HashMap<String,ArrayList<Integer>>();
     private double longitude=0,latitude=0;
+    private Long pressTime = 0L;
 
     private MapView.POIItemEventListener eventListener = new MapView.POIItemEventListener() {
     @Override
@@ -233,6 +235,25 @@ public class TouristSpotActivity extends AppCompatActivity {
         @Override
         public View getPressedCalloutBalloon(MapPOIItem poiItem) {
             return mCalloutBalloon;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (pressTime == 0) {
+            Toast.makeText(TouristSpotActivity.this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            pressTime = System.currentTimeMillis();
+        }
+        else {
+            int seconds = (int) (System.currentTimeMillis() - pressTime);
+
+            if (seconds > 2000) {
+                Toast.makeText(TouristSpotActivity.this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+                pressTime = 0L;
+            }
+            else {
+                super.onBackPressed();
+            }
         }
     }
 
