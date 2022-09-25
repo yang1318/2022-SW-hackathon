@@ -153,9 +153,12 @@ public class NfcActivity extends AppCompatActivity {
                             challenge = stamp.getChallenge();
                             challenge_content = challenge.getDescription();
                             ArrayList<Post> posts = challenge.getPost();
-                            Glide.with(getApplicationContext())
-                                    .load(posts.get(0).getPictureUrl())
-                                    .into(glide);
+                            if(posts.size() !=0){
+                                Glide.with(getApplicationContext())
+                                        .load(posts.get(0).getPictureUrl())
+                                        .into(glide);
+                            }
+
                             count = posts.get(0).getRecommendNum();
 
                             stampCount.setText(count.toString());
