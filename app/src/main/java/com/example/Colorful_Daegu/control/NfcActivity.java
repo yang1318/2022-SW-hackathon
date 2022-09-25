@@ -92,10 +92,12 @@ public class NfcActivity extends AppCompatActivity {
                         Intent intent1 = new Intent(getApplicationContext(), CongrationActivity.class);
                         startActivity(intent1);
                     }
-                    Map<String, Object> updates = new HashMap<>();
-                    updates.put("user/"+uid+"/stampCount/", ServerValue.increment(1));
-                    updates.put("stampState/"+uid+"/"+tid+"/"+sid, 1);
-                    mDatabase.updateChildren(updates);
+                    else if (check == 0) {
+                        Map<String, Object> updates = new HashMap<>();
+                        updates.put("user/" + uid + "/stampCount/", ServerValue.increment(1));
+                        updates.put("stampState/" + uid + "/" + tid + "/" + sid, 1);
+                        mDatabase.updateChildren(updates);
+                    }
                 }
                 else {
                     Log.e("firebase", "Error getting data", task.getException());
