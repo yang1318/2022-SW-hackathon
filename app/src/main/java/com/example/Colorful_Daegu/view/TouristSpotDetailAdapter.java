@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.Colorful_Daegu.R;
+import com.example.Colorful_Daegu.control.NfcActivity;
 import com.example.Colorful_Daegu.control.RankActivity;
 import com.example.Colorful_Daegu.model.TouristSpotDetailItem;
 
@@ -91,9 +92,9 @@ public class TouristSpotDetailAdapter extends RecyclerView.Adapter<TouristSpotDe
                     .into(imageView);
 
             imageView.setOnClickListener(view->{
-                Intent intent = new Intent(itemView.getContext(), NfcAdapter.class);
+                Intent intent = new Intent(itemView.getContext(), NfcActivity.class);
                 intent.putExtra("tid", myTid);
-                intent.putExtra("sid",item.getIndex());
+                intent.putExtra("sid",String.valueOf(item.getIndex()));
                 view.getContext().startActivity(intent);
             });
         }
@@ -117,9 +118,10 @@ public class TouristSpotDetailAdapter extends RecyclerView.Adapter<TouristSpotDe
                     .into(imageView);
 
             imageView.setOnClickListener(view->{
-                Intent intent = new Intent(itemView.getContext(), NfcAdapter.class);
+                System.out.println(item.getIndex());
+                Intent intent = new Intent(itemView.getContext(), NfcActivity.class);
                 intent.putExtra("tid", myTid);
-                intent.putExtra("sid",item.getIndex());
+                intent.putExtra("sid",String.valueOf(item.getIndex()));
                 view.getContext().startActivity(intent);
             });
         }
