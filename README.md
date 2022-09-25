@@ -15,11 +15,11 @@
   - 프로젝트 활용방안
 
 - 프로젝트에 활용된 기술 (3가지 이내)
-<img src="https://img.shields.io/badge/이름-색상코드?style=flat-square&logo=Firebase&logoColor=로고색"/>
+<img src="https://img.shields.io/firevase/이름-색상코드?style=flat-square&logo=Firebase&logoColor=로고색"/>
 Firebase Realtime Database를 활용한 데이터베이스 개발
-<img src="https://img.shields.io/badge/이름-색상코드?style=flat-square&logo=NFC&logoColor=로고색"/>
+<img src="https://img.shields.io/NFC/이름-색상코드?style=flat-square&logo=NFC&logoColor=로고색"/>
 NFC 태그를 통한 정보 읽기/쓰기
-<img src="https://img.shields.io/badge/이름-색상코드?style=flat-square&logo=Android Studio&logoColor=로고색"/>
+<img src="https://img.shields.io/Android Studio/이름-색상코드?style=flat-square&logo=Android Studio&logoColor=로고색"/>
   java를 사용한 안드로이드 어플리케이션 개발,
 
 - 시연영상
