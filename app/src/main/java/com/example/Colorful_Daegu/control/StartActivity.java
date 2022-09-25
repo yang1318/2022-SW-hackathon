@@ -80,6 +80,7 @@ public class StartActivity extends AppCompatActivity {
                 }
             });
             if (nfcCheck) {
+                nfcCheck = false;
                 Intent intent = new Intent(getApplicationContext(), NfcActivity.class);
                 intent.putExtra("tid", tid);
                 intent.putExtra("sid", sid);
