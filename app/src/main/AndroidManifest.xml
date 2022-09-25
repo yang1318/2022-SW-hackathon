@@ -33,6 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".control.NfcActivity"></activity>
+        <activity android:name=".control.CongrationActivity"></activity>
         <activity android:name=".control.TouristSpotActivity"></activity>
         <activity android:name=".control.TouristSpotDetailActivity"></activity>
         <activity android:name=".control.RankActivity"></activity>

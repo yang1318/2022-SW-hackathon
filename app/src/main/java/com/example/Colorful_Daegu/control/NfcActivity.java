@@ -22,6 +22,7 @@ import com.example.Colorful_Daegu.model.Challenge;
 import com.example.Colorful_Daegu.model.Post;
 import com.example.Colorful_Daegu.model.Reply;
 import com.example.Colorful_Daegu.model.Stamp;
+import com.example.Colorful_Daegu.model.StampState;
 import com.example.Colorful_Daegu.view.NfcAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -79,11 +80,27 @@ public class NfcActivity extends AppCompatActivity {
             uid = user.getUid();
         }
 
-        Map<String, Object> updates = new HashMap<>();
 
-        updates.put("user/"+uid+"/stampCount/", ServerValue.increment(1));
-        updates.put("stampState/"+uid+"/"+tid+"/"+sid, 1);
-        mDatabase.updateChildren(updates);
+
+        mDatabase.child("stampState").child(uid).child(tid).child(sid).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (task.isSuccessful()) {
+                    int check = task.getResult().getValue(Integer.class);
+                    if(check == -1) {
+                        Intent intent1 = new Intent(getApplicationContext(), CongrationActivity.class);
+                        startActivity(intent1);
+                    }
+                    Map<String, Object> updates = new HashMap<>();
+                    updates.put("user/"+uid+"/stampCount/", ServerValue.increment(1));
+                    updates.put("stampState/"+uid+"/"+tid+"/"+sid, 1);
+                    mDatabase.updateChildren(updates);
+                }
+                else {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+            }
+        });
 
         ImageView glide = (ImageView)findViewById(R.id.c_glide);
 
