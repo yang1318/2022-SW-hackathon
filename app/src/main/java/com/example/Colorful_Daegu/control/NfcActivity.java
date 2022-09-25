@@ -92,7 +92,7 @@ public class NfcActivity extends AppCompatActivity {
                         Intent intent1 = new Intent(getApplicationContext(), CongrationActivity.class);
                         startActivity(intent1);
                     }
-                    else if (check == 0) {
+                    else if (check < 1) {
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("user/" + uid + "/stampCount/", ServerValue.increment(1));
                         updates.put("stampState/" + uid + "/" + tid + "/" + sid, 1);
