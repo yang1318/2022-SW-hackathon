@@ -53,9 +53,9 @@
 - 시연영상
   - https://youtu.be/h3-Zik_BrLs
   - https://youtu.be/1gy0X9xxZDE
-- 피그마 링크
+- 피그마 링크<br>
   https://www.figma.com/file/22Ef9TSZD49QtJ5m99b9Qz/%ED%95%B4%EC%BB%A4%ED%86%A4-2022?node-id=0%3A1/  
-- firebase realtime database json 파일 구조 (json파일) (NoSQL 형식)
+- firebase realtime database json 파일 구조 (json파일) (NoSQL 형식)<br>
   https://drive.google.com/file/d/19saeEEb6mJWKzD8rNi88tv64nx0eVpce/view?usp=sharing
 ### 기타
   - 올바른 어플리케이션 실행을 위해서는 Firebase와 연동된 google-services.json 파일이 app 내에 존재해야합니다. 보안상의 문제로 github에 업로드 되지 않았습니다. 다만, 임의의 google-services.json파일을 업로드 했을 경우 해당 데이터베이스와 연동이 되어있지 않아 정보가 뜨지 않을 수 있음. 이때, 위의 구글드라이브내의 realtime database json 파일을 다운받아 설정하거나 메일로 문의해주시면 조치해드리도록 하겠습니다.
