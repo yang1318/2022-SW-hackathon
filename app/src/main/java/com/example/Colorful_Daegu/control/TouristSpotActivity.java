@@ -155,7 +155,7 @@ public class TouristSpotActivity extends AppCompatActivity {
 
                 } else {
                     mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(35.8899242, 128.610697), true);
-                    mapView.setZoomLevel(4, true);
+                    mapView.setZoomLevel(3, true);
 
                 }
             }
@@ -199,18 +199,18 @@ public class TouristSpotActivity extends AppCompatActivity {
 //            Glide.with(mCalloutBalloon).load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD6vcHKuBV0F2oiyO9M_8UoqnBlCIFkviLGQ&usqp=CAU").into((imageView));
 //            Glide.with(mCalloutBalloon).load(R.drawable.spot_knu).into((imageView));
             ImageView imgBall = (ImageView) mCalloutBalloon.findViewById(R.id.ball_img);
-            switch (poiItem.getItemName()){
+            switch (poiItem.getTag()){
 //                case "경북대학교": imgBall.setImageResource(R.drawable.spot_knu); break;
-                case "동성로 스파크": imgBall.setImageResource(R.drawable.spot_sparkland);break;
-                case "이월드": imgBall.setImageResource(R.drawable.spot_eworld);break;
-                case "앞산 전망대" : imgBall.setImageResource(R.drawable.spot_frontm);break;
-                case "갓바위" : imgBall.setImageResource(R.drawable.spot_godrock);break;
-                case "김광석 거리" : imgBall.setImageResource(R.drawable.spot_street);break;
-                case "수성못" : imgBall.setImageResource(R.drawable.spot_suseongmot);break;
-                case "디아크" : imgBall.setImageResource(R.drawable.spot_theark);break;
-                case "서문시장" :imgBall.setImageResource(R.drawable.spot_seomunmarket); break;
-                case "대구 수목원" : imgBall.setImageResource(R.drawable.spot_arboretum);break;
-                case "대구숲": imgBall.setImageResource(R.drawable.spot_forest);break;
+                case 3: imgBall.setImageResource(R.drawable.spot_sparkland);break;
+                case 2: imgBall.setImageResource(R.drawable.spot_eworld);break;
+//                case "앞산 전망대" : imgBall.setImageResource(R.drawable.spot_frontm);break;
+//                case "갓바위" : imgBall.setImageResource(R.drawable.spot_godrock);break;
+//                case 4 : imgBall.setImageResource(R.drawable.spot_street);break;
+                case 1 : imgBall.setImageResource(R.drawable.spot_suseongmot);break;
+                case 5 : imgBall.setImageResource(R.drawable.spot_theark);break;
+                case 6 :imgBall.setImageResource(R.drawable.spot_seomunmarket); break;
+//                case "대구 수목원" : imgBall.setImageResource(R.drawable.spot_arboretum);break;
+//                case "대구숲": imgBall.setImageResource(R.drawable.spot_forest);break;
                 default: imgBall.setImageResource(R.drawable.spot_knu);break;
 //                case "대구 스타디움" : imgBall.setImageResource(R.drawable.spot_knu);break;
 //                case "대구 미술관" : imgBall.setImageResource(R.drawable.spot_knu);break;
