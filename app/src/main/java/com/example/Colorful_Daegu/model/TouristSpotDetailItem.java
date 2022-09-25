@@ -1,14 +1,24 @@
 package com.example.Colorful_Daegu.model;
 
 public class TouristSpotDetailItem {
+    int index;
     String pictureUrl;
     String name;
     int success;
 
-    public TouristSpotDetailItem(String picture, String name, int success) {
+    public TouristSpotDetailItem(int index, String picture, String name, int success) {
+        this.index = index;
         this.pictureUrl = picture;
         this.name = name;
         this.success = success;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 
     public String getPictureUrl() {
