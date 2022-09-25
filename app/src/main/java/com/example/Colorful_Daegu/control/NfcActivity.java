@@ -88,16 +88,17 @@ public class NfcActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DataSnapshot> task) {
                 if (task.isSuccessful()) {
                     int check = task.getResult().getValue(Integer.class);
-                    if(check == -1) {
-                        Intent intent1 = new Intent(getApplicationContext(), CongrationActivity.class);
-                        startActivity(intent1);
-                    }
-                    else if (check < 1) {
+                    if (check < 1) {
                         Map<String, Object> updates = new HashMap<>();
                         updates.put("user/" + uid + "/stampCount/", ServerValue.increment(1));
                         updates.put("stampState/" + uid + "/" + tid + "/" + sid, 1);
                         mDatabase.updateChildren(updates);
                     }
+                    if(check == -1) {
+                        Intent intent1 = new Intent(getApplicationContext(), CongrationActivity.class);
+                        startActivity(intent1);
+                    }
+
                 }
                 else {
                     Log.e("firebase", "Error getting data", task.getException());
