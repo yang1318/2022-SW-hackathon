@@ -41,7 +41,7 @@ import java.util.Map;
 
 public class NfcActivity extends AppCompatActivity {
 
-    private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference("Daegu/5");
+    private DatabaseReference mDatabase= FirebaseDatabase.getInstance().getReference("Daegu/final");
     private String stampname;
     private ArrayList<Reply> replys = new ArrayList<>();
     private String stampdesc;
