@@ -51,7 +51,8 @@
 
 ### 시연 영상 및 관련 링크
 - 시연영상
-  -https://youtube.com
+  - https://youtu.be/h3-Zik_BrLs
+  - https://youtu.be/1gy0X9xxZDE
 - 피그마 링크
   https://www.figma.com/file/22Ef9TSZD49QtJ5m99b9Qz/%ED%95%B4%EC%BB%A4%ED%86%A4-2022?node-id=0%3A1/  
 - firebase realtime database json 파일 구조 (json파일) (NoSQL 형식)
