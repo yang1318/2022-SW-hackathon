@@ -1,5 +1,7 @@
 # 2022-SW-hackathon
 ## 컬러풀여행
+<img width="159" alt="스크린샷 2022-09-25 오전 5 38 27" src="https://user-images.githubusercontent.com/63386322/192128210-20db1391-411c-4322-bd35-79953db7bf17.png">
+
 - 팀명
   - 나래
 - 제출 세션 및 주제
